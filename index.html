@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Once Human – Only Survivors Make It Out Alive</title>
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1609173570075426');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1609173570075426&ev=PageView&noscript=1"/></noscript>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon: #00f5c4;
+    --neon-glow: rgba(0,245,196,0.6);
+    --text-dim: #8ba89f;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  /* BACKGROUND */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background: url('bg.jpg') center / cover no-repeat;
+  }
+  .bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,0.55) 0%,
+      rgba(2,12,10,0.75) 40%,
+      rgba(2,12,10,0.9) 100%);
+  }
+
+  /* SCANLINES */
+  .scanlines {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 3px,
+      rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+    );
+  }
+
+  /* CORNER BRACKETS */
+  .corner { position: fixed; width: 36px; height: 36px; z-index: 3; opacity: 0.4; }
+  .corner::before, .corner::after { content: ''; position: absolute; background: var(--neon); }
+  .corner.tl { top: 14px; left: 14px; }
+  .corner.tl::before { width: 2px; height: 100%; top: 0; left: 0; }
+  .corner.tl::after  { width: 100%; height: 2px; top: 0; left: 0; }
+  .corner.tr { top: 14px; right: 14px; }
+  .corner.tr::before { width: 2px; height: 100%; top: 0; right: 0; }
+  .corner.tr::after  { width: 100%; height: 2px; top: 0; right: 0; }
+  .corner.bl { bottom: 14px; left: 14px; }
+  .corner.bl::before { width: 2px; height: 100%; bottom: 0; left: 0; }
+  .corner.bl::after  { width: 100%; height: 2px; bottom: 0; left: 0; }
+  .corner.br { bottom: 14px; right: 14px; }
+  .corner.br::before { width: 2px; height: 100%; bottom: 0; right: 0; }
+  .corner.br::after  { width: 100%; height: 2px; bottom: 0; right: 0; }
+
+  /* WRAPPER */
+  .wrapper {
+    position: relative; z-index: 2;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 16px 20px 24px;
+    gap: 8px;
+  }
+
+  /* CTA — in flow, tight under image */
+  .cta-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    margin-top: 4px;
+  }
+
+  /* HEADLINE */
+  .headline {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.4rem, 4vw, 3rem);
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-shadow: 0 0 20px rgba(0,245,196,0.4), 0 2px 4px rgba(0,0,0,0.8);
+  }
+  .headline span { color: var(--neon); }
+
+  /* SUBHEADLINE */
+  .subheadline {
+    font-size: clamp(0.78rem, 1.5vw, 1rem);
+    color: #c8ddd8;
+    text-align: center;
+    max-width: 560px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  /* FEATURES */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px 12px;
+  }
+  .feature {
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--neon);
+    background: rgba(0,245,196,0.07);
+    border: 1px solid rgba(0,245,196,0.2);
+    padding: 3px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* HERO IMAGE */
+  .hero-wrap {
+    width: 50%;
+    max-width: 520px;
+    flex-shrink: 1;
+    min-height: 0;
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+  .hero-wrap:hover { transform: scale(1.02); }
+  .hero-wrap:hover .hero-frame {
+    box-shadow: 0 0 80px rgba(0,245,196,0.6), 0 0 140px rgba(0,245,196,0.2);
+  }
+
+  .hero-frame {
+    width: 100%;
+    padding: 3px;
+    background: linear-gradient(135deg, #00f5c4, #7fff00, #00f5c4);
+    background-size: 200% 200%;
+    animation: borderGlow 4s ease infinite;
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(0,245,196,0.3), 0 0 80px rgba(0,245,196,0.12);
+  }
+
+  .hero-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    object-fit: cover;
+    border-radius: 8px;
+    animation: heroZoom 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* CTA BUTTON */
+  .cta-btn {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.8rem, 2vw, 1.15rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+    background: var(--neon);
+    text-decoration: none;
+    padding: clamp(11px, 2vh, 17px) clamp(26px, 5vw, 50px);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+    animation: ctaZoom 1.8s ease-in-out infinite;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute; inset: -3px;
+    border-radius: 5px;
+    border: 1px solid var(--neon);
+    opacity: 0.5;
+    animation: borderPulse 2.2s ease-in-out infinite;
+  }
+  .cta-btn::after { content: ' ▶'; font-size: 0.8em; }
+  .cta-btn:hover {
+    background: #fff;
+    transform: scale(1.07) translateY(-2px);
+    animation: none;
+    box-shadow: 0 0 40px var(--neon-glow), 0 0 100px rgba(0,245,196,0.3);
+  }
+  .cta-btn:active { transform: scale(0.98); }
+
+  .cta-small {
+    font-size: clamp(0.55rem, 1vw, 0.7rem);
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ANIMATIONS */
+  @keyframes borderGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+  @keyframes heroZoom {
+    0%   { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1);    opacity: 1; }
+  }
+  @keyframes ctaZoom {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 20px var(--neon-glow), 0 0 50px rgba(0,245,196,0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px var(--neon-glow), 0 0 90px rgba(0,245,196,0.5);
+    }
+  }
+  @keyframes borderPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 0.7; transform: scale(1.015); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero-wrap { width: 78%; }
+    .subheadline { font-size: 0.75rem; }
+    .corner { width: 24px; height: 24px; }
+  }
+
+  /* SHORT SCREENS */
+  @media (max-height: 650px) {
+    .subheadline { display: none; }
+    .wrapper { gap: 5px; }
+    .hero-frame img { max-height: 24vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="scanlines"></div>
+
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<div class="wrapper">
+
+  <h1 class="headline">Only <span>Survivors</span><br>Make It Out Alive</h1>
+
+  <p class="subheadline">
+    Explore a contaminated open world, build your base, craft powerful weapons
+    and fight terrifying creatures in Once Human.
+  </p>
+
+  <div class="features">
+    <span class="feature">🌍 Open World Survival</span>
+    <span class="feature">🏗 Build Your Base</span>
+    <span class="feature">👹 Mutated Creatures</span>
+    <span class="feature">👥 Play Solo or Squad</span>
+  </div>
+
+  <div class="hero-wrap">
+    <div class="hero-frame">
+      <img src="hero.jpg" alt="Once Human" loading="eager">
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <a
+      class="cta-btn"
+      href="https://to.wendiro.com/u?k=24c3cf9a5dde4dd896352d1314e9aacd&via=22457"
+      id="cta"
+      target="_blank"
+      rel="noopener"
+    >Claim Your Free Copy on Steam</a>
+    <span class="cta-small">Windows PC Only</span>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('cta').addEventListener('click', function() {
+    fbq('track', 'Lead');
+  });
+</script>
+</body>
+</html>
